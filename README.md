@@ -10,7 +10,7 @@ This is a simple tool to show data structures of the TI-Nspires underlying opera
 * Event groups
 * Queues
 * Semaphores (classic CAS only atm)
-* Mailboxes (classic CAS only atm)
+* Mailboxes (classic CAS only atm)  
 
 You can also delete some of them (that's why it's called "Manager" ;)
 
