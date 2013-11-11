@@ -17,8 +17,8 @@ const char NU_STATUS[13][20] =
 	"TERMINATED"
 };
 
-const char yes[] = "Yes";
-const char no[] = "No";
+static const char yes[] = "Yes";
+static const char no[] = "No";
 
 task* task_info(void* task_ptr)
 {
@@ -34,8 +34,7 @@ const char* task_preempt(int preempt)
 {
 	if(preempt == 10)
 		return yes;
-	else
-		return no;
+	return no;
 }
 
 entry* task_entries_create(void* pointer_list[], unsigned count)

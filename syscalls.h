@@ -102,6 +102,8 @@ static const unsigned int mbc_create_mailbox_addrs[] = { 0x0, 0x103D0E88, 0x0, 0
 static const unsigned int iof_established_drivers_addrs[] = { 0x0, 0x10274898, 0x0, 0x0 };
 #define IOF_Established_Drivers SYSCALL_CUSTOM(iof_established_drivers_addrs, unsigned, void)
 
+// The IOF_Driver_Information function does not exist in Nucleus.
+
 static const unsigned int iof_driver_pointers_addrs[] = { 0x0, 0x102748B0, 0x0, 0x0 };
 #define IOF_Driver_Pointers SYSCALL_CUSTOM(iof_driver_pointers_addrs, unsigned, void**, unsigned)
 
@@ -110,5 +112,36 @@ static const unsigned int ioc_create_driver_addrs[] = { 0x0, 0x102747F0, 0x0, 0x
 
 static const unsigned int ioc_delete_driver_addrs[] = { 0x0, 0x102747A0, 0x0, 0x0 };
 #define IOC_Delete_Driver SYSCALL_CUSTOM(ioc_delete_driver_addrs, unsigned, void*)
+
+/* Pipes */
+
+// The PIF_* functions are not compiled into the Nspire OS. Only one pipe is present in OS 3.1 CAS, called "wl_pipe", so we probably don't miss that much here.
+
+static const unsigned int pic_create_pipe_addrs[] = { 0x0, 0x10275554, 0x0, 0x0 };
+#define PIC_Create_Pipe SYSCALL_CUSTOM(pic_create_pipe_addrs, unsigned, void*, char*, void*, unsigned, unsigned char, unsigned, unsigned char)
+
+static const unsigned int pic_delete_pipe_addrs[] = { 0x0, 0x1027568C, 0x0, 0x0 };
+#define PIC_Delete_Pipe SYSCALL_CUSTOM(pic_delete_pipe_addrs, unsigned, void*)
+
+/* Partition pools */
+
+// Partition pool support is not compiled into the Nspire OS.
+
+/* Timers */
+
+static const unsigned int tmf_established_timers_addrs[] = { 0x0, 0x10277BC0, 0x0, 0x0 };
+#define TMF_Established_Timers SYSCALL_CUSTOM(tmf_established_timers_addrs, unsigned, void)
+
+static const unsigned int tmf_timer_pointers_addrs[] = { 0x0, 0x10277B60, 0x0, 0x0 };
+#define TMF_Timer_Pointers SYSCALL_CUSTOM(tmf_timer_pointers_addrs, unsigned, void**, unsigned)
+
+static const unsigned int tmf_timer_information_addrs[] = { 0x0, 0x10277A70, 0x0, 0x0 };
+#define TMF_Timer_Information SYSCALL_CUSTOM(tmf_timer_information_addrs, unsigned, void*, char*, unsigned char*, unsigned*, unsigned*, unsigned*, unsigned*)
+
+static const unsigned int tms_create_timer_addrs[] = { 0x0, 0x10277D5C, 0x0, 0x0 };
+#define TMS_Create_Timer SYSCALL_CUSTOM(tms_create_timer_addrs, unsigned, void*, char*, void (*)(unsigned), unsigned, unsigned, unsigned, unsigned char)
+
+static const unsigned int tms_delete_timer_addrs[] = { 0x0, 0x10277CE8, 0x0, 0x0 };
+#define TMS_Delete_Timer SYSCALL_CUSTOM(tms_delete_timer_addrs, unsigned, void*)
 
 #endif

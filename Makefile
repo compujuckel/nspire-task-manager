@@ -17,7 +17,7 @@ ifneq ($(strip $(CPPOBJS)),)
 	LDFLAGS += --cpp
 endif
 EXE = taskmanager.tns
-DISTDIR = .
+DISTDIR = ./bin
 vpath %.tns $(DISTDIR)
 
 all: $(EXE)

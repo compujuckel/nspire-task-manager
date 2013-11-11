@@ -10,9 +10,10 @@
 #include "semaphore.h"
 #include "mailbox.h"
 #include "driver.h"
+#include "timer.h"
 #include "settings.h"
 
-#define MAINMENU_SIZE 8
+#define MAINMENU_SIZE 9
 
 entry* main_create_entries()
 {
@@ -24,7 +25,8 @@ entry* main_create_entries()
 	strcpy(e[4].text,"Manage semaphores");
 	strcpy(e[5].text,"Manage mailboxes");
 	strcpy(e[6].text,"Manage drivers");
-	strcpy(e[7].text,"Settings");
+	strcpy(e[7].text,"Manage timers");
+	strcpy(e[8].text,"Settings");
 	return e;
 }
 
@@ -61,6 +63,9 @@ int main(void)
 					break;
 				case 6:
 					display_drivers_screen();
+					break;
+				case 7:
+					display_timers_screen();
 					break;
 				default:
 					display_settings_screen();
