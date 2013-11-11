@@ -20,8 +20,18 @@ typedef struct list
 	unsigned offset;
 } list;
 
+typedef struct list2
+{
+	entry* entries;
+	list* list;
+	unsigned count;
+} list2;
+
 list* create_list(int x, int y, int length, entry* entries, unsigned entry_count);
 void draw_list(list* l);
 int update_list(list* l);
+
+void list2_refresh(list2* l, void* pointer_list[], list2* (*create_func)(void*[]));
+void list2_free(list2* l);
 
 #endif

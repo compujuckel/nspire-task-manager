@@ -25,27 +25,14 @@ entry* mailbox_entries_create(void* pointer_list[], unsigned count)
 	return e;
 }
 
-mailbox_list* mailbox_list_create(void* pointer_list[])
+list2* mailbox_list_create(void* pointer_list[])
 {
-	mailbox_list* t = malloc(sizeof(mailbox_list));
+	list2* t = malloc(sizeof(list2));
 	t->count = MBF_Mailbox_Pointers(pointer_list,100);
 	t->entries = mailbox_entries_create(pointer_list,t->count);
 	t->list = create_list(0,24,25,t->entries,t->count);
 	
 	return t;
-}
-
-void mailbox_list_free(mailbox_list* t)
-{
-	free(t->entries);
-	free(t->list);
-	free(t);
-}
-
-void mailbox_list_refresh(mailbox_list* t, void* pointer_list[])
-{
-	mailbox_list_free(t);
-	t = mailbox_list_create(pointer_list);
 }
 
 void display_mailbox_info_screen(unsigned int selection, void* pointer_list[])
@@ -81,23 +68,23 @@ void display_mailboxes_screen(void)
 {
 	void* pointer_list[100];
 	
-	mailbox_list* t = mailbox_list_create(pointer_list);
+	list2* t = mailbox_list_create(pointer_list);
 	
 	do
 	{
 		if(isKeyPressed(KEY_NSPIRE_1))
-			mailbox_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&mailbox_list_create);
 		
 		int selection = update_list(t->list);
 		if(selection != -1)
 		{
 			display_mailbox_info_screen(selection,pointer_list);
-			mailbox_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&mailbox_list_create);
 		}
 		
 		nio_scrbuf_clear();
 		
-		nio_grid_printf(0,0,0,0,NIO_COLOR_WHITE,NIO_COLOR_BLACK,"Manage memory mailboxs (showing %d of %d)",t->count,MBF_Established_Mailboxes());
+		nio_grid_printf(0,0,0,0,NIO_COLOR_WHITE,NIO_COLOR_BLACK,"Manage memory mailboxes (showing %d of %d)",t->count,MBF_Established_Mailboxes());
 		nio_grid_puts(0,0,0,1, " Name      |Message",NIO_COLOR_WHITE,NIO_COLOR_BLACK);
 		nio_grid_puts(0,0,0,2, "-----------+-----------------------------------------",NIO_COLOR_WHITE,NIO_COLOR_BLACK);
 		nio_grid_puts(0,0,0,28,"-----------+-----------------------------------------",NIO_COLOR_WHITE,NIO_COLOR_BLACK);
@@ -108,5 +95,5 @@ void display_mailboxes_screen(void)
 		wait_key_pressed();
 	} while(!isKeyPressed(KEY_NSPIRE_ESC));
 	
-	mailbox_list_free(t);
+	list2_free(t);
 }

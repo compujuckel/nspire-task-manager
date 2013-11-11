@@ -16,17 +16,9 @@ typedef struct event
 	void* first_task;
 } event;
 
-typedef struct event_list
-{
-	entry* entries;
-	list* list;
-	unsigned count;
-} event_list;
-
 event* event_info(void* event_ptr);
 entry* event_entries_create(void* pointer_list[], unsigned count);
-event_list* event_list_create(void* pointer_list[]);
-void event_list_refresh(event_list* t, void* pointer_list[]);
+list2* event_list_create(void* pointer_list[]);
 
 void display_event_info_screen(unsigned int selection, void* pointer_list[]);
 void display_events_screen(void);

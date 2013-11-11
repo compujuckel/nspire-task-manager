@@ -25,27 +25,14 @@ entry* pool_entries_create(void* pointer_list[], unsigned count)
 	return e;
 }
 
-pool_list* pool_list_create(void* pointer_list[])
+list2* pool_list_create(void* pointer_list[])
 {
-	pool_list* t = malloc(sizeof(pool_list));
+	list2* t = malloc(sizeof(list2));
 	t->count = DMF_Memory_Pool_Pointers(pointer_list,100);
 	t->entries = pool_entries_create(pointer_list,t->count);
 	t->list = create_list(0,24,25,t->entries,t->count);
 	
 	return t;
-}
-
-void pool_list_free(pool_list* t)
-{
-	free(t->entries);
-	free(t->list);
-	free(t);
-}
-
-void pool_list_refresh(pool_list* t, void* pointer_list[])
-{
-	pool_list_free(t);
-	t = pool_list_create(pointer_list);
 }
 
 void display_pool_info_screen(unsigned int selection, void* pointer_list[])
@@ -84,18 +71,18 @@ void display_pools_screen(void)
 {
 	void* pointer_list[100];
 	
-	pool_list* t = pool_list_create(pointer_list);
+	list2* t = pool_list_create(pointer_list);
 	
 	do
 	{
 		if(isKeyPressed(KEY_NSPIRE_1))
-			pool_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&pool_list_create);
 		
 		int selection = update_list(t->list);
 		if(selection != -1)
 		{
 			display_pool_info_screen(selection,pointer_list);
-			pool_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&pool_list_create);
 		}
 		
 		nio_scrbuf_clear();
@@ -111,5 +98,5 @@ void display_pools_screen(void)
 		wait_key_pressed();
 	} while(!isKeyPressed(KEY_NSPIRE_ESC));
 	
-	pool_list_free(t);
+	list2_free(t);
 }

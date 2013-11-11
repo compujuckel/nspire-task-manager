@@ -20,17 +20,9 @@ typedef struct pool
 	void* first_task;
 } pool;
 
-typedef struct pool_list
-{
-	entry* entries;
-	list* list;
-	unsigned count;
-} pool_list;
-
 pool* pool_info(void* pool_ptr);
 entry* pool_entries_create(void* pointer_list[], unsigned count);
-pool_list* pool_list_create(void* pointer_list[]);
-void pool_list_refresh(pool_list* t, void* pointer_list[]);
+list2* pool_list_create(void* pointer_list[]);
 
 void display_pool_info_screen(unsigned int selection, void* pointer_list[]);
 void display_pools_screen(void);

@@ -17,17 +17,9 @@ typedef struct mailbox
 	void* first_task;
 } mailbox;
 
-typedef struct mailbox_list
-{
-	entry* entries;
-	list* list;
-	unsigned count;
-} mailbox_list;
-
 mailbox* mailbox_info(void* mailbox_ptr);
 entry* mailbox_entries_create(void* pointer_list[], unsigned count);
-mailbox_list* mailbox_list_create(void* pointer_list[]);
-void mailbox_list_refresh(mailbox_list* t, void* pointer_list[]);
+list2* mailbox_list_create(void* pointer_list[]);
 
 void display_mailbox_info_screen(unsigned int selection, void* pointer_list[]);
 void display_mailboxes_screen(void);

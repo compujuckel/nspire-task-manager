@@ -12,9 +12,9 @@ entry* settings_entries_create(unsigned count)
 	return e;
 }
 
-settings_list* settings_list_create()
+list2* settings_list_create()
 {
-	settings_list* t = malloc(sizeof(settings_list));
+	list2* t = malloc(sizeof(list2));
 	t->count = 1;
 	t->entries = settings_entries_create(t->count);
 	t->list = create_list(0,24,25,t->entries,t->count);
@@ -22,22 +22,15 @@ settings_list* settings_list_create()
 	return t;
 }
 
-void settings_list_free(settings_list* t)
+void settings_list_refresh(list2* t)
 {
-	free(t->entries);
-	free(t->list);
-	free(t);
-}
-
-void settings_list_refresh(settings_list* t)
-{
-	settings_list_free(t);
-	t = settings_list_create();
+        list2_free(t);
+        t = settings_list_create();
 }
 
 void display_settings_screen(void)
 {
-	settings_list* t = settings_list_create();
+	list2* t = settings_list_create();
 	
 	do
 	{
@@ -78,5 +71,5 @@ void display_settings_screen(void)
 		wait_key_pressed();
 	} while(!isKeyPressed(KEY_NSPIRE_ESC));
 	
-	settings_list_free(t);
+	list2_free(t);
 }

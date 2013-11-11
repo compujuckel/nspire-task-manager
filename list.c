@@ -48,3 +48,23 @@ int update_list(list* l)
 	
 	return -1;
 }
+
+void list2_free(list2* l)
+{
+	free(l->entries);
+	free(l->list);
+	free(l);
+}
+
+void list2_refresh(list2* l, void* pointer_list[], list2* (*create_func)(void*[]))
+{
+	unsigned tmp_cursor_pos = l->list->cursor_pos;
+	unsigned tmp_offset = l->list->offset;
+	list2_free(l);
+	l = (*create_func)(pointer_list);
+	
+	if(tmp_cursor_pos >= l->list->length || tmp_offset+tmp_cursor_pos >= l->list->entry_count)
+		tmp_cursor_pos--;
+	l->list->cursor_pos = tmp_cursor_pos;
+	l->list->offset = tmp_offset;
+}

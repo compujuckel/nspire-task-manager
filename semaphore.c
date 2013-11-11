@@ -25,27 +25,14 @@ entry* semaphore_entries_create(void* pointer_list[], unsigned count)
 	return e;
 }
 
-semaphore_list* semaphore_list_create(void* pointer_list[])
+list2* semaphore_list_create(void* pointer_list[])
 {
-	semaphore_list* t = malloc(sizeof(semaphore_list));
+	list2* t = malloc(sizeof(list2));
 	t->count = SMF_Semaphore_Pointers(pointer_list,100);
 	t->entries = semaphore_entries_create(pointer_list,t->count);
 	t->list = create_list(0,24,25,t->entries,t->count);
 	
 	return t;
-}
-
-void semaphore_list_free(semaphore_list* t)
-{
-	free(t->entries);
-	free(t->list);
-	free(t);
-}
-
-void semaphore_list_refresh(semaphore_list* t, void* pointer_list[])
-{
-	semaphore_list_free(t);
-	t = semaphore_list_create(pointer_list);
 }
 
 void display_semaphore_info_screen(unsigned int selection, void* pointer_list[])
@@ -81,18 +68,18 @@ void display_semaphores_screen(void)
 {
 	void* pointer_list[100];
 	
-	semaphore_list* t = semaphore_list_create(pointer_list);
+	list2* t = semaphore_list_create(pointer_list);
 	
 	do
 	{
 		if(isKeyPressed(KEY_NSPIRE_1))
-			semaphore_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&semaphore_list_create);
 		
 		int selection = update_list(t->list);
 		if(selection != -1)
 		{
 			display_semaphore_info_screen(selection,pointer_list);
-			semaphore_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&semaphore_list_create);
 		}
 		
 		nio_scrbuf_clear();
@@ -109,5 +96,5 @@ void display_semaphores_screen(void)
 		wait_key_pressed();
 	} while(!isKeyPressed(KEY_NSPIRE_ESC));
 	
-	semaphore_list_free(t);
+	list2_free(t);
 }

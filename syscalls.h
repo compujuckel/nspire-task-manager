@@ -65,30 +65,36 @@ static const unsigned int quc_receive_from_queue_addrs[] = { 0x10275AC0, 0x10276
 
 /* Semaphores */
 
-static const unsigned int smf_established_semaphores_addrs[] = { 0x103D15A4, 0x0, 0x0, 0x0 };
+static const unsigned int smf_established_semaphores_addrs[] = { 0x103D15A4, 0x103D1CD4, 0x0, 0x0 };
 #define SMF_Established_Semaphores SYSCALL_CUSTOM(smf_established_semaphores_addrs, unsigned, void)
 
-static const unsigned int smf_semaphore_information_addrs[] = { 0x103D15BC, 0x0, 0x0, 0x0 };
+static const unsigned int smf_semaphore_information_addrs[] = { 0x103D15BC, 0x103D1CEC, 0x0, 0x0 };
 #define SMF_Semaphore_Information SYSCALL_CUSTOM(smf_semaphore_information_addrs, unsigned, void*, char*, unsigned*, unsigned char*, unsigned*, void**)
 
-static const unsigned int smf_semaphore_pointers_addrs[] = { 0x103D16A8, 0x0, 0x0, 0x0 };
+static const unsigned int smf_semaphore_pointers_addrs[] = { 0x103D16A8, 0x103D1DD8, 0x0, 0x0 };
 #define SMF_Semaphore_Pointers SYSCALL_CUSTOM(smf_semaphore_pointers_addrs, unsigned, void**, unsigned)
 
-static const unsigned int smc_delete_semaphore_addrs[] = { 0x10276C50, 0x0, 0x0, 0x0 };
+static const unsigned int smc_delete_semaphore_addrs[] = { 0x10276C50, 0x1027737C, 0x0, 0x0 };
 #define SMC_Delete_Semaphore SYSCALL_CUSTOM(smc_delete_semaphore_addrs, unsigned, void*)
+
+static const unsigned int smc_create_semaphore_addrs[] = { 0x0, 0x102771D8, 0x0, 0x0 };
+#define SMC_Create_Semaphore SYSCALL_CUSTOM(smc_create_semaphore_addrs, int, void*, char*, unsigned, unsigned char)
 
 /* Mailboxes */
 
-static const unsigned int mbf_established_mailboxes_addrs[] = { 0x103D08F8, 0x0, 0x0, 0x0 };
+static const unsigned int mbf_established_mailboxes_addrs[] = { 0x103D08F8, 0x103D1028, 0x0, 0x0 };
 #define MBF_Established_Mailboxes SYSCALL_CUSTOM(mbf_established_mailboxes_addrs, unsigned, void)
 
-static const unsigned int mbf_mailbox_information_addrs[] = { 0x103D0910, 0x0, 0x0, 0x0 };
+static const unsigned int mbf_mailbox_information_addrs[] = { 0x103D0910, 0x103D1040, 0x0, 0x0 };
 #define MBF_Mailbox_Information SYSCALL_CUSTOM(mbf_mailbox_information_addrs, unsigned, void*, char*, unsigned char*, unsigned char*, unsigned*, void**)
 
-static const unsigned int mbf_mailbox_pointers_addrs[] = { 0x103D09FC, 0x0, 0x0, 0x0 };
+static const unsigned int mbf_mailbox_pointers_addrs[] = { 0x103D09FC, 0x103D112C, 0x0, 0x0 };
 #define MBF_Mailbox_Pointers SYSCALL_CUSTOM(mbf_mailbox_pointers_addrs, unsigned, void**, unsigned)
 
-static const unsigned int mbc_delete_mailbox_addrs[] = { 0x103D0824, 0x0, 0x0, 0x0 };
+static const unsigned int mbc_delete_mailbox_addrs[] = { 0x103D0824, 0x103D0F54, 0x0, 0x0 };
 #define MBC_Delete_Mailbox SYSCALL_CUSTOM(mbc_delete_mailbox_addrs, unsigned, void*)
+
+static const unsigned int mbc_create_mailbox_addrs[] = { 0x0, 0x103D0E88, 0x0, 0x0 };
+#define MBC_Create_Mailbox SYSCALL_CUSTOM(mbc_create_mailbox_addrs, int, void*, char*, unsigned char)
 
 #endif

@@ -25,27 +25,14 @@ entry* queue_entries_create(void* pointer_list[], unsigned count)
 	return e;
 }
 
-queue_list* queue_list_create(void* pointer_list[])
+list2* queue_list_create(void* pointer_list[])
 {
-	queue_list* t = malloc(sizeof(queue_list));
+	list2* t = malloc(sizeof(list2));
 	t->count = QUF_Queue_Pointers(pointer_list,100);
 	t->entries = queue_entries_create(pointer_list,t->count);
 	t->list = create_list(0,24,25,t->entries,t->count);
 	
 	return t;
-}
-
-void queue_list_free(queue_list* t)
-{
-	free(t->entries);
-	free(t->list);
-	free(t);
-}
-
-void queue_list_refresh(queue_list* t, void* pointer_list[])
-{
-	queue_list_free(t);
-	t = queue_list_create(pointer_list);
 }
 
 void display_queue_info_screen(unsigned int selection, void* pointer_list[])
@@ -86,18 +73,18 @@ void display_queues_screen(void)
 {
 	void* pointer_list[100];
 	
-	queue_list* t = queue_list_create(pointer_list);
+	list2* t = queue_list_create(pointer_list);
 	
 	do
 	{
 		if(isKeyPressed(KEY_NSPIRE_1))
-			queue_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&queue_list_create);
 		
 		int selection = update_list(t->list);
 		if(selection != -1)
 		{
 			display_queue_info_screen(selection,pointer_list);
-			queue_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&queue_list_create);
 		}
 		
 		nio_scrbuf_clear();
@@ -113,5 +100,5 @@ void display_queues_screen(void)
 		wait_key_pressed();
 	} while(!isKeyPressed(KEY_NSPIRE_ESC));
 	
-	queue_list_free(t);
+	list2_free(t);
 }

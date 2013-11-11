@@ -25,27 +25,14 @@ entry* event_entries_create(void* pointer_list[], unsigned count)
 	return e;
 }
 
-event_list* event_list_create(void* pointer_list[])
+list2* event_list_create(void* pointer_list[])
 {
-	event_list* t = malloc(sizeof(event_list));
+	list2* t = malloc(sizeof(list2));
 	t->count = EVF_Event_Group_Pointers(pointer_list,100);
 	t->entries = event_entries_create(pointer_list,t->count);
 	t->list = create_list(0,24,25,t->entries,t->count);
 	
 	return t;
-}
-
-void event_list_free(event_list* t)
-{
-	free(t->entries);
-	free(t->list);
-	free(t);
-}
-
-void event_list_refresh(event_list* t, void* pointer_list[])
-{
-	event_list_free(t);
-	t = event_list_create(pointer_list);
 }
 
 void display_event_info_screen(unsigned int selection, void* pointer_list[])
@@ -80,18 +67,18 @@ void display_events_screen(void)
 {
 	void* pointer_list[100];
 	
-	event_list* t = event_list_create(pointer_list);
+	list2* t = event_list_create(pointer_list);
 	
 	do
 	{
 		if(isKeyPressed(KEY_NSPIRE_1))
-			event_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&event_list_create);
 		
 		int selection = update_list(t->list);
 		if(selection != -1)
 		{
 			display_event_info_screen(selection,pointer_list);
-			event_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&event_list_create);
 		}
 		
 		nio_scrbuf_clear();
@@ -107,5 +94,5 @@ void display_events_screen(void)
 		wait_key_pressed();
 	} while(!isKeyPressed(KEY_NSPIRE_ESC));
 	
-	event_list_free(t);
+	list2_free(t);
 }

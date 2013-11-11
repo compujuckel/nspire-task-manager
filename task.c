@@ -53,27 +53,14 @@ entry* task_entries_create(void* pointer_list[], unsigned count)
 	return e;
 }
 
-task_list* task_list_create(void* pointer_list[])
+list2* task_list_create(void* pointer_list[])
 {
-	task_list* t = malloc(sizeof(task_list));
+	list2* t = malloc(sizeof(list2));
 	t->count = TCF_Task_Pointers(pointer_list,100);
 	t->entries = task_entries_create(pointer_list,t->count);
 	t->list = create_list(0,24,25,t->entries,t->count);
 	
 	return t;
-}
-
-void task_list_free(task_list* t)
-{
-	free(t->entries);
-	free(t->list);
-	free(t);
-}
-
-void task_list_refresh(task_list* t, void* pointer_list[])
-{
-	task_list_free(t);
-	t = task_list_create(pointer_list);
 }
 
 void display_task_info_screen(unsigned int selection, void* pointer_list[])
@@ -113,18 +100,18 @@ void display_tasks_screen(void)
 {
 	void* pointer_list[100];
 	
-	task_list* t = task_list_create(pointer_list);
+	list2* t = task_list_create(pointer_list);
 	
 	do
 	{
 		if(isKeyPressed(KEY_NSPIRE_1))
-			task_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&task_list_create);
 		
 		int selection = update_list(t->list);
 		if(selection != -1)
 		{
 			display_task_info_screen(selection,pointer_list);
-			task_list_refresh(t,pointer_list);
+			list2_refresh(t,pointer_list,&task_list_create);
 		}
 		
 		nio_scrbuf_clear();
@@ -141,5 +128,5 @@ void display_tasks_screen(void)
 		wait_key_pressed();
 	} while(!isKeyPressed(KEY_NSPIRE_ESC));
 	
-	task_list_free(t);
+	list2_free(t);
 }
