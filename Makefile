@@ -7,7 +7,7 @@ ifeq (${OBJCOPY},"")
 	OBJCOPY := arm-none-eabi-objcopy
 endif
 EXE = taskmanager.tns
-OBJS = main.o list.o task.o misc.o pool.o event.o queue.o semaphore.o mailbox.o settings.o
+OBJS = main.o list.o task.o misc.o pool.o event.o queue.o semaphore.o mailbox.o settings.o driver.o
 DISTDIR = bin
 vpath %.tns $(DISTDIR)
 

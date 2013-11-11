@@ -97,4 +97,18 @@ static const unsigned int mbc_delete_mailbox_addrs[] = { 0x103D0824, 0x103D0F54,
 static const unsigned int mbc_create_mailbox_addrs[] = { 0x0, 0x103D0E88, 0x0, 0x0 };
 #define MBC_Create_Mailbox SYSCALL_CUSTOM(mbc_create_mailbox_addrs, int, void*, char*, unsigned char)
 
+/* I/O Drivers */
+
+static const unsigned int iof_established_drivers_addrs[] = { 0x0, 0x10274898, 0x0, 0x0 };
+#define IOF_Established_Drivers SYSCALL_CUSTOM(iof_established_drivers_addrs, unsigned, void)
+
+static const unsigned int iof_driver_pointers_addrs[] = { 0x0, 0x102748B0, 0x0, 0x0 };
+#define IOF_Driver_Pointers SYSCALL_CUSTOM(iof_driver_pointers_addrs, unsigned, void**, unsigned)
+
+static const unsigned int ioc_create_driver_addrs[] = { 0x0, 0x102747F0, 0x0, 0x0 };
+#define IOC_Create_Driver SYSCALL_CUSTOM(ioc_create_driver_addrs, unsigned, void*, char*, void (*)(void*, void*))
+
+static const unsigned int ioc_delete_driver_addrs[] = { 0x0, 0x102747A0, 0x0, 0x0 };
+#define IOC_Delete_Driver SYSCALL_CUSTOM(ioc_delete_driver_addrs, unsigned, void*)
+
 #endif

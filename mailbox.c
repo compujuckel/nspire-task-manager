@@ -42,7 +42,7 @@ void display_mailbox_info_screen(unsigned int selection, void* pointer_list[])
 	{
 		nio_scrbuf_clear();
 		
-		nio_grid_puts(0,0,0,0,"Memory mailbox information",NIO_COLOR_WHITE,NIO_COLOR_BLACK);
+		nio_grid_puts(0,0,0,0,"Mailbox information",NIO_COLOR_WHITE,NIO_COLOR_BLACK);
 		nio_grid_printf(0,0,0,1,NIO_COLOR_WHITE,NIO_COLOR_BLACK,"Name: %s",p->name);
 		nio_grid_printf(0,0,0,2,NIO_COLOR_WHITE,NIO_COLOR_BLACK,"Suspend type: %d",p->suspend_type);
 		nio_grid_printf(0,0,0,3,NIO_COLOR_WHITE,NIO_COLOR_BLACK,"Message present: %d",p->message_present);
@@ -84,7 +84,7 @@ void display_mailboxes_screen(void)
 		
 		nio_scrbuf_clear();
 		
-		nio_grid_printf(0,0,0,0,NIO_COLOR_WHITE,NIO_COLOR_BLACK,"Manage memory mailboxes (showing %d of %d)",t->count,MBF_Established_Mailboxes());
+		nio_grid_printf(0,0,0,0,NIO_COLOR_WHITE,NIO_COLOR_BLACK,"Manage mailboxes (showing %d of %d)",t->count,MBF_Established_Mailboxes());
 		nio_grid_puts(0,0,0,1, " Name      |Message",NIO_COLOR_WHITE,NIO_COLOR_BLACK);
 		nio_grid_puts(0,0,0,2, "-----------+-----------------------------------------",NIO_COLOR_WHITE,NIO_COLOR_BLACK);
 		nio_grid_puts(0,0,0,28,"-----------+-----------------------------------------",NIO_COLOR_WHITE,NIO_COLOR_BLACK);

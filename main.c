@@ -9,9 +9,10 @@
 #include "queue.h"
 #include "semaphore.h"
 #include "mailbox.h"
+#include "driver.h"
 #include "settings.h"
 
-#define MAINMENU_SIZE 7
+#define MAINMENU_SIZE 8
 
 entry* main_create_entries()
 {
@@ -22,7 +23,8 @@ entry* main_create_entries()
 	strcpy(e[3].text,"Manage queues");
 	strcpy(e[4].text,"Manage semaphores");
 	strcpy(e[5].text,"Manage mailboxes");
-	strcpy(e[6].text,"Settings");
+	strcpy(e[6].text,"Manage drivers");
+	strcpy(e[7].text,"Settings");
 	return e;
 }
 
@@ -57,9 +59,11 @@ int main(void)
 				case 5:
 					display_mailboxes_screen();
 					break;
+				case 6:
+					display_drivers_screen();
+					break;
 				default:
 					display_settings_screen();
-					break;
 			}
 		}
 		
